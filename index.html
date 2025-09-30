@@ -22,12 +22,12 @@
   .front{flex-direction:column;gap:10px}
   .front .big{font-size:1.2rem;color:var(--accent);letter-spacing:.6px}
   .front .sub{font-size:.9rem;opacity:.85}
-  .back{transform:rotateY(180deg);flex-direction:column;gap:12px;background:linear-gradient(180deg,#071827,#05202e)}
-  img.ticket{max-width:100%;max-height:100%;border-radius:8px;box-shadow:0 8px 30px rgba(0,0,0,.6);object-fit:contain;cursor:pointer;pointer-events:auto;backface-visibility:visible;}
+  .back{transform:rotateY(180deg);flex-direction:column;gap:12px;background:linear-gradient(180deg,#071827,#05202e);position:relative}
+  img.ticket{max-width:100%;max-height:100%;border-radius:8px;box-shadow:0 8px 30px rgba(0,0,0,.6);object-fit:contain;cursor:pointer;display:block;margin:0 auto;}
   .btn-small{display:inline-block;padding:8px 14px;border-radius:8px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.04);cursor:pointer;font-weight:600;text-decoration:none;color:#fff}
-  .links{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:8px}
-  .hint{opacity:.8;font-size:.85rem;margin-top:12px}
-  footer{margin-top:18px;opacity:.7;font-size:.82rem}
+  .links{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:12px}
+  .hint{opacity:.8;font-size:.85rem;margin-top:12px;text-align:center}
+  footer{margin-top:18px;opacity:.7;font-size:.82rem;text-align:center}
   @media(max-width:420px){
     .card{width:300px;height:200px}
     h1{font-size:1.4rem}
@@ -52,10 +52,13 @@
           <img id="ticketImg" class="ticket" 
                src="https://raw.githubusercontent.com/Manigi-afk/Feliz-cumple-Mo-/main/Show.jpg" 
                alt="Entrada">
+          
           <div class="links">
+            <!-- Botón de descarga separado -->
             <a href="https://raw.githubusercontent.com/Manigi-afk/Feliz-cumple-Mo-/main/Show.jpg" download="Entrada_Show.jpg" class="btn-small">Guardar entrada 📲</a>
             <button id="keepSecret" class="btn-small">No lo abras aún 😉</button>
           </div>
+          
           <div class="hint">Podés guardar la imagen en tu celular 📲</div>
         </div>
       </div>
