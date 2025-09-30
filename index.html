@@ -10,28 +10,25 @@
   .wrap{max-width:920px;width:94%;text-align:center;padding:10px}
   h1{margin:0 0 18px;font-size:1.6rem}
   p{margin:0 0 26px;opacity:.9}
-  .scene{perspective:1200px;display:flex;align-items:center;justify-content:center}
+  .scene{display:flex;align-items:center;justify-content:center}
   .card{
     width:360px;height:220px;border-radius:14px;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
-    box-shadow:0 12px 40px rgba(0,0,0,.6);position:relative;transform-style:preserve-3d;transition:transform .6s ease-in-out;
-    display:flex;align-items:center;justify-content:center;cursor:pointer;overflow:hidden;
-    touch-action: manipulation;
+    box-shadow:0 12px 40px rgba(0,0,0,.6);display:flex;align-items:center;justify-content:center;cursor:pointer;overflow:hidden;
   }
-  .card.flipped{transform:rotateY(180deg)}
-  .face{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;padding:20px;backface-visibility:hidden}
-  .front{flex-direction:column;gap:10px}
+  .front{flex-direction:column;gap:10px;display:flex;align-items:center;justify-content:center;height:100%;}
   .front .big{font-size:1.2rem;color:var(--accent);letter-spacing:.6px}
   .front .sub{font-size:.9rem;opacity:.85}
-  .back{transform:rotateY(180deg);flex-direction:column;gap:12px;background:linear-gradient(180deg,#071827,#05202e);position:relative}
-  img.ticket{max-width:100%;max-height:100%;border-radius:8px;box-shadow:0 8px 30px rgba(0,0,0,.6);object-fit:contain;cursor:pointer;display:block;margin:0 auto;}
   .btn-small{display:inline-block;padding:8px 14px;border-radius:8px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.04);cursor:pointer;font-weight:600;text-decoration:none;color:#fff}
-  .links{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:12px}
-  .hint{opacity:.8;font-size:.85rem;margin-top:12px;text-align:center}
   footer{margin-top:18px;opacity:.7;font-size:.82rem;text-align:center}
   @media(max-width:420px){
     .card{width:300px;height:200px}
     h1{font-size:1.4rem}
   }
+
+  /* Modal */
+  #modal{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.85);justify-content:center;align-items:center;z-index:9999;flex-direction:column}
+  #modal img{max-width:90%;max-height:80%;border-radius:10px;margin-bottom:15px}
+  #modal button{padding:10px 15px;font-size:16px;cursor:pointer;border-radius:8px;background:#e6a600;border:none;color:#000;font-weight:bold;}
 </style>
 </head>
 <body>
@@ -40,26 +37,11 @@
     <p>Hacé click o tocá la tarjeta para ver tu regalo — abrilo con amor.</p>
 
     <div class="scene">
-      <div id="card" class="card" role="button" aria-pressed="false" tabindex="0">
-        <div class="face front">
+      <div class="card">
+        <div class="front">
           <div class="big">¡Sorpresa!</div>
           <div class="sub">Click para descubrir tu entrada</div>
-          <div style="margin-top:12px" class="btn-small">Abrí la sorpresa</div>
-        </div>
-
-        <div class="face back">
-          <!-- Imagen siempre visible al voltear -->
-          <img id="ticketImg" class="ticket" 
-               src="https://raw.githubusercontent.com/Manigi-afk/Feliz-cumple-Mo-/main/Show.jpg" 
-               alt="Entrada">
-          
-          <div class="links">
-            <!-- Botón de descarga separado -->
-            <a href="https://raw.githubusercontent.com/Manigi-afk/Feliz-cumple-Mo-/main/Show.jpg" download="Entrada_Show.jpg" class="btn-small">Guardar entrada 📲</a>
-            <button id="keepSecret" class="btn-small">No lo abras aún 😉</button>
-          </div>
-          
-          <div class="hint">Podés guardar la imagen en tu celular 📲</div>
+          <button id="showTicket" class="btn-small" style="margin-top:12px;">Abrí la sorpresa 🎫</button>
         </div>
       </div>
     </div>
@@ -67,28 +49,24 @@
     <footer>Fecha del show: <strong>11 de octubre, 19:30</strong> · Lugar: <strong>Restaurante Histórico Lacarra</strong></footer>
   </div>
 
+  <!-- Modal -->
+  <div id="modal">
+    <img src="https://raw.githubusercontent.com/Manigi-afk/Feliz-cumple-Mo-/main/Show.jpg" alt="Entrada">
+    <a href="https://raw.githubusercontent.com/Manigi-afk/Feliz-cumple-Mo-/main/Show.jpg" download="Entrada_Show.jpg" class="btn-small" style="margin-bottom:10px;">Guardar entrada 📲</a>
+    <button id="closeModal">Cerrar ❌</button>
+  </div>
+
 <script>
-  const card = document.getElementById('card');
-  const keep = document.getElementById('keepSecret');
+  const showTicket = document.getElementById('showTicket');
+  const modal = document.getElementById('modal');
+  const closeModal = document.getElementById('closeModal');
 
-  function toggle(){
-    const flipped = card.classList.toggle('flipped');
-    card.setAttribute('aria-pressed', flipped ? 'true' : 'false');
-  }
-
-  // Click y teclado
-  card.addEventListener('click', toggle);
-  card.addEventListener('keydown', e => { if(e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggle(); }});
-
-  // Tacto para móviles
-  card.addEventListener('touchstart', (e) => {
-    e.preventDefault(); // evita doble toque y scroll accidental
-    toggle();
+  showTicket.addEventListener('click', () => {
+    modal.style.display = 'flex';
   });
 
-  keep.addEventListener('click', (e)=>{
-    e.stopPropagation();
-    alert('Ok, lo dejamos cerrado por ahora 😉');
+  closeModal.addEventListener('click', () => {
+    modal.style.display = 'none';
   });
 </script>
 </body>
