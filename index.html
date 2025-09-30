@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Tu sorpresa 🎫</title>
+<style>
+  :root{--bg:#0f1724;--card:#0b1220;--accent:#e6a600}
+  html,body{height:100%;margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial;color:#fff;background:linear-gradient(180deg,#071022 0%,#071b2a 100%);display:flex;align-items:center;justify-content:center}
+  .wrap{max-width:920px;width:94%;text-align:center}
+  h1{margin:0 0 18px;font-size:1.6rem}
+  p{margin:0 0 26px;opacity:.9}
+  .scene{perspective:1200px;display:flex;align-items:center;justify-content:center}
+  .card{
+    width:360px;height:220px;border-radius:14px;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+    box-shadow:0 12px 40px rgba(0,0,0,.6);position:relative;transform-style:preserve-3d;transition:transform .9s cubic-bezier(.2,.9,.2,1);
+    display:flex;align-items:center;justify-content:center;cursor:pointer;overflow:hidden
+  }
+  .card.flipped{transform:rotateY(180deg)}
+  .face{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;padding:20px;backface-visibility:hidden}
+  .front{flex-direction:column;gap:10px}
+  .front .big{font-size:1.2rem;color:var(--accent);letter-spacing:.6px}
+  .front .sub{font-size:.9rem;opacity:.85}
+  .back{transform:rotateY(180deg);flex-direction:column;gap:12px;background:linear-gradient(180deg,#071827,#05202e)}
+  img.ticket{max-width:100%;max-height:100%;border-radius:8px;box-shadow:0 8px 30px rgba(0,0,0,.6);object-fit:contain}
+  .btn-small{display:inline-block;padding:8px 14px;border-radius:8px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.04);cursor:pointer;font-weight:600}
+  .links{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:8px}
+  .hint{opacity:.8;font-size:.85rem;margin-top:12px}
+  footer{margin-top:18px;opacity:.7;font-size:.82rem}
+  @media(max-width:420px){.card{width:300px;height:200px}}
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <h1>Tenés una sorpresa 🎁</h1>
+    <p>Hacé click en la tarjeta para ver tu regalo — abrilo con amor.</p>
+
+    <div class="scene">
+      <div id="card" class="card" role="button" aria-pressed="false" tabindex="0">
+        <div class="face front">
+          <div class="big">¡Sorpresa!</div>
+          <div class="sub">Click para descubrir tu entrada</div>
+          <div style="margin-top:12px" class="btn-small">Abrí la sorpresa</div>
+        </div>
+
+        <div class="face back">
+          <!-- Ahora tu entrada se muestra desde Show.jpg -->
+          <img id="ticketImg" class="ticket" src="Show.jpg" alt="Entrada">
+          <div class="links">
+            <button id="keepSecret" class="btn-small">No lo abras aún 😉</button>
+          </div>
+          <div class="hint">Podés guardar la imagen en tu celular 📲</div>
+        </div>
+      </div>
+    </div>
+
+    <footer>Fecha del show: <strong>11 de octubre, 19:30</strong> · Lugar: <strong>Restaurante Histórico Lacarra</strong></footer>
+  </div>
+
+<script>
+  const card = document.getElementById('card');
+  const keep = document.getElementById('keepSecret');
+
+  function toggle(){
+    const flipped = card.classList.toggle('flipped');
+    card.setAttribute('aria-pressed', flipped ? 'true' : 'false');
+  }
+
+  card.addEventListener('click', toggle);
+  card.addEventListener('keydown', e => { if(e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggle(); }});
+
+  keep.addEventListener('click', (e)=>{
+    e.stopPropagation();
+    alert('Ok, lo dejamos cerrado por ahora 😉');
+  });
+</script>
+</body>
+</html>
